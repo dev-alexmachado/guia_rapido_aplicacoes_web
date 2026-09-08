@@ -36,21 +36,14 @@ Essa tecnologia/parte do sistema é executada localmente no navegador do usuári
 
 ~~~mermaid
 graph TD
-    A(Cliente/Usuário<br><img src="img/icons8-usuário-64.png">) -- Acessa --> Sistema
+    A(Cliente/Usuário) -- Acessa --> Sistema
 
     subgraph Sistema [Site Estático]
-        direction LR
-        subgraph Cliente [Client-Side]
-            direction TD
-            PC(PC<br><img src="img/laptop-64.png">)
-            Mobile(Mobile<br><img src="img/icons8-smartphone-64.png">)
-        end
+        B(PC<br>---------<br>Mobile) -- Executa --> C(Navegador)
+        C -- Acessa via URL --> D(Servidor Web/Serviço de Hospedagem)
 
-        Cliente -- Executa --> B(Navegador/Web Browser<br><img src="img/icons8-janela-do-navegador-64.png">)
-        B -- Acessa via URL --> C(Servidor/Serviço de Hospedagem<br><img src="img/server-64.png">)
-
-        C -- Responde e envia por download --> B
-        B -- Armazena temporariamente --> Cliente
+        D -- Responde e envia por download --> C
+        C -- Armazena temporariamente --> B
     end
 ~~~
 
@@ -70,27 +63,24 @@ Back-End, também conhecido como tecnologia ***Server Side***, é a parte do sis
 
 ~~~mermaid
 graph TD
-    A(Cliente/Usuário<br><img src="img/icons8-usuário-64.png">) -- Acessa --> Sistema
+    A(Cliente/Usuário) -- Acessa --> Sistema
 
     subgraph Sistema [Site dinâmico]
         direction LR
-        subgraph Cliente [Client-Side]
+
+        subgraph Front-End
             direction TD
-            PC(PC<br><img src="img/laptop-64.png">)
-            Mobile(Mobile<br><img src="img/icons8-smartphone-64.png">)
+            B(PC<br>---------<br>Mobile) -- Executa --> C(Navegador)
         end
-        
-        Cliente -- Executa --> B(Navegador/Web Browser<br><img src="img/icons8-janela-do-navegador-64.png">)
-        B -- Acessa via URL --> C(Servidor/Serviço de Hospedagem<br><img src="img/server-64.png">)
+
+        Front-End -- Acessa --> Back-End
+        Back-End -- Envia --> Front-End
 
         subgraph Back-End
             direction TD
-            C -- Consulta --> D[(SGBD)]
+            D(Servidor Web/Serviço de Hospedagem) -- Consulta --> E[(SGBD)]
 
-            D -- Executa --> C
+            E -- Retorna --> D
         end
-
-        Back-End -- Envia dados --> B
-        B -- Armazena temporariamente --> Cliente
     end
 ~~~

@@ -68,19 +68,23 @@ graph TD
     subgraph Sistema [Site dinâmico]
         direction LR
 
-        subgraph Front-End
-            direction TD
-            B(PC<br>---------<br>Mobile) -- Executa --> C(Navegador)
-        end
-
-        Front-End -- Acessa --> Back-End
-        Back-End -- Envia --> Front-End
-
         subgraph Back-End
             direction TD
             D(Servidor Web/Serviço de Hospedagem) -- Consulta --> E[(SGBD)]
 
             E -- Retorna --> D
         end
+
+        Back-End -- Envia --> Front-End
+        Front-End -- Acessa --> Back-End
+
+        subgraph Front-End
+            direction TD
+            B(PC<br>---------<br>Mobile) -- Executa --> C(Navegador)
+
+            C -- Exibe --> B
+        end
+
+        
     end
 ~~~

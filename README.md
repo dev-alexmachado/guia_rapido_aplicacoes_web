@@ -73,6 +73,11 @@ graph TD
             Dispositivo -- 1. Executa --> Navegador
         end
     end
+
+    style Cliente fill: #030
+    style Dispositivo fill: #003
+    style Hospedagem fill: #033
+    style Front-End fill: #333
 ~~~
 
 > [!IMPORTANT]
@@ -121,12 +126,19 @@ graph TD
 
         subgraph Cliente
             direction LR
-            subgraph Dispositivos
+            subgraph Dispositivo
                 PC
                 Mobile
             end
             
-            Dispositivos <-- 1. Executa / 7. Exibe --> Navegador
+            Dispositivo <-- 1. Executa / 7. Exibe --> Navegador
         end
     end
+
+    style Cliente fill: #030
+    style Dispositivo fill: #003
+    style Hospedagem fill: #300
+    style Nuvem fill: #033
+    style Front-End fill: #333
+    style Back-End fill: #16161d
 ~~~

@@ -35,15 +35,18 @@ Essa tecnologia/parte do sistema é executada localmente no navegador do usuári
 > Caso a conexão caia, o usuário continuará tendo acesso ao sistema, desde que não saia da tela.
 
 ~~~mermaid
+---
+title: Aplicação estática - HTML/CSS/JS puro
+---
 graph TD
     A(Cliente/Usuário) -- Acessa --> Sistema
 
     subgraph Sistema [Site Estático]
-        B(PC<br>---------<br>Mobile) -- Executa --> C(Navegador)
-        C -- Acessa via URL --> D(Servidor Web/Serviço de Hospedagem)
+        B(PC<br>---------<br>Mobile) -- 1. Executa --> C(Navegador)
+        C -- 2. Acessa via URL --> D(Servidor Web/Serviço de Hospedagem)
 
-        D -- Responde e envia por download --> C
-        C -- Armazena temporariamente --> B
+        D -- 3. Responde e envia por download --> C
+        C -- 4. Armazena temporariamente --> B
     end
 ~~~
 
@@ -62,6 +65,9 @@ Back-End, também conhecido como tecnologia ***Server Side***, é a parte do sis
 > Diferentemente do Front-End, o Back-End continua sendo executado de forma síncrona no servidor, e uma queda na conexão fará o usuário perder a conexão com o sistema.
 
 ~~~mermaid
+---
+title: Aplicação dinâmica - Front-End + Back-End
+---
 graph TD
     A(Cliente/Usuário) -- Acessa --> Sistema
 
@@ -70,19 +76,19 @@ graph TD
 
         subgraph Back-End
             direction TD
-            D(Servidor Web/Serviço de Hospedagem) -- Consulta --> E[(SGBD)]
+            D(Servidor Web/Serviço de Hospedagem) -- 3. Consulta --> E[(Banco de Dados)]
 
-            E -- Retorna --> D
+            E -- 4. Retorna --> D
         end
 
-        Front-End -- Faz a requisição --> Back-End
-        Back-End -- Envia --> Front-End
+        Front-End -- 2. Faz a requisição --> Back-End
+        Back-End -- 5. Envia --> Front-End
 
         subgraph Front-End
             direction TD
-            B(PC<br>---------<br>Mobile) -- Executa --> C(Navegador)
+            B(PC<br>---------<br>Mobile) -- 1. Executa --> C(Navegador)
 
-            C -- Exibe --> B
+            C -- 6. Exibe --> B
         end
 
         

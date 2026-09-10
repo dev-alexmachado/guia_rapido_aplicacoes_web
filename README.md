@@ -5,6 +5,8 @@
 1. [O que é uma aplicação web](#o-que-é-uma-aplicação-web)
 2. [Front-End](#front-end)
 3. [Back-End](#back-end)
+4. [Design Pattern](#design-pattern)<br>
+    4.1 [MVC: Model-View-Controller](#mvc-model-view-controller)<br>
 
 ## O que é uma aplicação web
 
@@ -39,40 +41,48 @@ Essa tecnologia/parte do sistema é executada localmente no navegador do usuári
 title: Aplicação estática - HTML/CSS/JS puro
 ---
 graph TD
-    Usuário -- Acessa --> Sistema
+    Usuário(Usuário)
 
     subgraph Sistema [Site Estático]
         direction LR
+
         subgraph Hospedagem
             direction TD
-            SW(Servidor Web) -- Hospeda --> Front-End
+
+            SW(Servidor Web)
+
             subgraph Front-End
                 subgraph Código-Fonte
-                    HTML
-                    CSS
-                    JS
+                    HTML(HTML)
+                    CSS(CSS)
+                    JS(JS)
                 end
 
                 subgraph Mídias
-                    Imagens
-                    Vídeos
-                    Áudios
-                    Fontes
+                    Imagens(Imagens)
+                    Vídeos(Vídeos)
+                    Áudios(Áudios)
+                    Fontes(Fontes)
                 end
             end
         end
 
-        Cliente <-- 2. Acessa / 3. Envia --> Hospedagem
-
         subgraph Cliente
             direction TD
+
+            Navegador(Navegador)
+
             subgraph Dispositivo
-                PC
-                Mobile
+                PC(PC)
+                Mobile(Mobile)
             end
-            Dispositivo -- 1. Executa --> Navegador
         end
     end
+
+    Usuário -- Acessa --> Sistema
+    Dispositivo -- 1. Executa --> Navegador
+    Cliente <-- 2. Acessa / 3. Envia --> Hospedagem
+    SW -- Hospeda --> Front-End
 
     style Cliente fill: #030
     style Dispositivo fill: #003
@@ -99,41 +109,49 @@ Back-End, também conhecido como tecnologia ***Server Side***, é a parte do sis
 title: Aplicação dinâmica - Front-End + Back-End
 ---
 graph TD
-    Usuário -- Acessa --> Sistema
+    Usuário(Usuário)
 
     subgraph Sistema [Site dinâmico]
         direction TD
 
         subgraph Hospedagem
             direction TD
-            Servidor -- Hospeda --> Nuvem
+
+            Servidor(Servidor)
 
             subgraph Nuvem
             direction LR
+
                 subgraph Back-End
-                    Linguagem(Linguagem de Programação) <-- 4. Consulta / 5. Retorna --> BD[(Banco de Dados)]
+                    Linguagem(Linguagem de Programação)
+                    BD[(Banco de Dados)]
                 end
+
                 subgraph Front-End
                     Mídia(Mídias)
-                    Código-Fonte
+                    Código-Fonte(Código-Fonte)
                 end
-
-                Código-Fonte <-- 3. Requisita / Retorna --> Linguagem
             end
         end
-
-        Cliente <-- 2. Solicita / 6. Responde --> Hospedagem
 
         subgraph Cliente
             direction LR
+
+            Navegador(Navegador)
+
             subgraph Dispositivo
-                PC
-                Mobile
+                PC(PC)
+                Mobile(Mobile)
             end
-            
-            Dispositivo <-- 1. Executa / 7. Exibe --> Navegador
         end
     end
+
+    Usuário -- Acessa --> Sistema
+    Dispositivo <-- 1. Executa / 8. Exibe --> Navegador
+    Cliente <-- 2. Solicita / 7. Responde --> Hospedagem
+    Código-Fonte <-- 3. Requisita / 6. Retorna --> Linguagem
+    Linguagem <-- 4. Consulta / 5. Retorna --> BD
+    Servidor -- Hospeda --> Nuvem
 
     style Cliente fill: #030
     style Dispositivo fill: #003
@@ -141,4 +159,51 @@ graph TD
     style Nuvem fill: #033
     style Front-End fill: #333
     style Back-End fill: #16161d
+~~~
+
+## Design Pattern
+
+Os **Design Patterns** nada mais são do que arquiteturas de desenvolvimento de software. São utilizados para organizar melhor o código-fonte para facilitar a manutenação do código. Existem vários Design Patterns que são utilizados no mercado, mas alguns são mais utilizados do que outros.
+
+### MVC: Model-View-Controller
+
+De todos os Design Patterns, este com certeza é o mais famoso, e também o mais usado, principalmente em Java e PHP.
+
+Nesse Design Pattern, a estrutura do projeto é dividido em 3 camadas:
+- **Model**: corresponde à parte do código responsável pela comunicação com banco de dados e das regras de validação. É aqui onde ficam a parte do código que possui as regras de negócio da aplicação.
+- **View**: corresponde à parte do sistema que é visível para o usuário, onde entrarão o UX/UI (User Experience e User Interface). Em outras palavras, aqui é onde fica o Front-End da aplicação.
+- **Controller**: responsável por transitar os dados entre a ***view*** e a ***model***.
+
+#### Diagrama
+~~~mermaid
+---
+title: Sistema
+---
+graph TD
+    Usuário(Usuário)
+    BD[(Banco de Dados)]
+
+    subgraph View
+        Front-End(Front-End)
+    end
+
+    subgraph Controller
+        Rota(Rotas)
+        Ação(Ações)
+    end
+
+    subgraph Model
+        subgraph Classes
+            direction LR
+            Atributo(Atributos)
+            Método(Get e Set)
+        end
+    end
+
+    Usuário -- Visualiza --> View
+    View <-- 1. Requisita / 8. Recebe --> Controller
+    Rota -- Executa --> Ação
+    Controller <-- 2. Envia / 7. Recebe --> Model
+    Atributo <-- 3. Acessa / 6. Retorna --> Método
+    Model <-- 4. Consulta / 5. Retorna --> BD
 ~~~

@@ -75,8 +75,8 @@ graph TD
             E -- Retorna --> D
         end
 
+        Front-End -- Faz a requisição --> Back-End
         Back-End -- Envia --> Front-End
-        Front-End -- Acessa --> Back-End
 
         subgraph Front-End
             direction TD

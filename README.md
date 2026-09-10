@@ -39,14 +39,39 @@ Essa tecnologia/parte do sistema é executada localmente no navegador do usuári
 title: Aplicação estática - HTML/CSS/JS puro
 ---
 graph TD
-    A(Cliente/Usuário) -- Acessa --> Sistema
+    Usuário -- Acessa --> Sistema
 
     subgraph Sistema [Site Estático]
-        B(PC<br>---------<br>Mobile) -- 1. Executa --> C(Navegador)
-        C -- 2. Acessa via URL --> D(Servidor Web/Serviço de Hospedagem)
+        direction LR
+        subgraph Hospedagem
+            direction TD
+            SW(Servidor Web) -- Hospeda --> Front-End
+            subgraph Front-End
+                subgraph Código-Fonte
+                    HTML
+                    CSS
+                    JS
+                end
 
-        D -- 3. Responde e envia por download --> C
-        C -- 4. Armazena temporariamente --> B
+                subgraph Mídias
+                    Imagens
+                    Vídeos
+                    Áudios
+                    Fontes
+                end
+            end
+        end
+
+        Cliente <-- 2. Acessa / 3. Envia --> Hospedagem
+
+        subgraph Cliente
+            direction TD
+            subgraph Dispositivo
+                PC
+                Mobile
+            end
+            Dispositivo -- 1. Executa --> Navegador
+        end
     end
 ~~~
 
@@ -69,28 +94,39 @@ Back-End, também conhecido como tecnologia ***Server Side***, é a parte do sis
 title: Aplicação dinâmica - Front-End + Back-End
 ---
 graph TD
-    A(Cliente/Usuário) -- Acessa --> Sistema
+    Usuário -- Acessa --> Sistema
 
     subgraph Sistema [Site dinâmico]
-        direction LR
+        direction TD
 
-        subgraph Back-End
+        subgraph Hospedagem
             direction TD
-            D(Servidor Web/Serviço de Hospedagem) -- 3. Consulta --> E[(Banco de Dados)]
+            Servidor -- Hospeda --> Nuvem
 
-            E -- 4. Retorna --> D
+            subgraph Nuvem
+            direction LR
+                subgraph Back-End
+                    Linguagem(Linguagem de Programação) <-- 4. Consulta / 5. Retorna --> BD[(Banco de Dados)]
+                end
+                subgraph Front-End
+                    Mídia(Mídias)
+                    Código-Fonte
+                end
+
+                Código-Fonte <-- 3. Requisita / Retorna --> Linguagem
+            end
         end
 
-        Front-End -- 2. Faz a requisição --> Back-End
-        Back-End -- 5. Envia --> Front-End
+        Cliente <-- 2. Solicita / 6. Responde --> Hospedagem
 
-        subgraph Front-End
-            direction TD
-            B(PC<br>---------<br>Mobile) -- 1. Executa --> C(Navegador)
-
-            C -- 6. Exibe --> B
+        subgraph Cliente
+            direction LR
+            subgraph Dispositivos
+                PC
+                Mobile
+            end
+            
+            Dispositivos <-- 1. Executa / 7. Exibe --> Navegador
         end
-
-        
     end
 ~~~

@@ -44,7 +44,7 @@ graph TD
     Usuário(Usuário)
 
     subgraph Sistema [Site Estático]
-        direction LR
+        direction TD
 
         subgraph Hospedagem
             direction TD
@@ -52,6 +52,7 @@ graph TD
             SW(Servidor Web)
 
             subgraph Front-End
+                direction LR
                 subgraph Código-Fonte
                     HTML(HTML)
                     CSS(CSS)
@@ -68,7 +69,7 @@ graph TD
         end
 
         subgraph Cliente
-            direction TD
+            direction LR
 
             Navegador(Navegador)
 
@@ -84,10 +85,10 @@ graph TD
     Cliente <-- 2. Acessa / 3. Envia --> Hospedagem
     SW -- Hospeda --> Front-End
 
-    style Cliente fill: #030
-    style Dispositivo fill: #003
-    style Hospedagem fill: #033
-    style Front-End fill: #333
+    style Cliente fill: #333
+    style Hospedagem fill: #333
+    style Dispositivo fill: #16161d
+    style Front-End fill: #16161d
 ~~~
 
 > [!IMPORTANT]
@@ -153,12 +154,10 @@ graph TD
     Linguagem <-- 4. Consulta / 5. Retorna --> BD
     Servidor -- Hospeda --> Nuvem
 
-    style Cliente fill: #030
-    style Dispositivo fill: #003
-    style Hospedagem fill: #300
-    style Nuvem fill: #033
-    style Front-End fill: #333
-    style Back-End fill: #16161d
+    style Cliente fill: #333
+    style Hospedagem fill: #333
+    style Dispositivo fill: #16161d
+    style Nuvem fill: #16161d
 ~~~
 
 ## Design Pattern
@@ -206,4 +205,49 @@ graph TD
     Controller <-- 2. Envia / 7. Recebe --> Model
     Atributo <-- 3. Acessa / 6. Retorna --> Método
     Model <-- 4. Consulta / 5. Retorna --> BD
+
+    style View fill: #333
+    style Controller fill: #333
+    style Model fill: #333
+~~~
+
+### MVT: Model-View-Template
+
+No framework web para Python Django, é usado o Design Pattern MVT, que é uma variação do MVC:
+- **Model**: tem a mesma funcionalidade da Model do MVC
+- **View**: aqui, a View tem uma função parecida com a do Controller do MVC. É ele que estabelece as rotas e trata os dados da aplicação.
+- **Template**: no Django, o Template faz o papel do Front-End da aplicação.
+
+#### Diagrama
+
+~~~mermaid
+graph TD
+    Usuário(Usuário)
+    BD[(Banco de Dados)]
+
+    subgraph Template
+        Front-End(Front-End)
+    end
+
+    subgraph View
+        Rota(Rota)
+        Ação(Ação)
+    end
+
+    subgraph Model
+        subgraph Classe
+            direction LR
+            Atributo(Atributo)
+            Método(Método)
+        end
+    end
+
+    Usuário -- Visualiza --> Template
+    Template <-- 1. Requisita / 8. Recebe --> View
+    View <-- 2. Envia / 7. Recebe --> Model
+    Atributo <-- 3. Acessa / 6. Retorna --> Método
+    Model <-- 4. Consulta / 5. Retorna --> BD
+    Rota -- Executa --> Ação
+
+    style Classe fill: #333
 ~~~
